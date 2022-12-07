@@ -10,44 +10,42 @@ const app = express();
 app.use(express.urlencoded({extended: true}));
 
 app.get('/app/', (req, res) => {
-    res.send('200 OK');
+	res.send('200 OK');
 })
 
 app.get('/app/roll/', (req, res) => {
 	res.send(roll(6,2,1));
-})
+});
+
 
 app.post('/app/roll/', (req, res) => {
-	let sides = parseInt(req.body.sides);
-	let dice = parseInt(req.body.dice);
-	let rolls = parseInt(req.body.rolls);
-
-	res.send(roll(sides, dice, rolls));
+	const sides = parseInt(req.body.sides)
+	const dice = parseInt(req.body.dice)
+	const rolls = parseInt(req.body.rolls)
+	console.log(req.body);
+	res.send(roll(sides, dice, rolls))
 })
 
 app.get('/app/roll/:sides/', (req, res) => {
-	let sides = parseInt(req.params.sides);
-
-	res.send(roll(sides, 2, 1));
+	const sides = parseInt(req.params.sides)
+	res.send(roll(sides, 2, 1))
 })
 
-app.get('/app/roll/:sides/:dice/', (req, res) => {
-	let sides = parseInt(req.params.sides)
-	let dice = parseInt(req.params.dice)
-
+app.get('/app/roll/:sides/:dice', (req, res) => {
+	const sides = parseInt(req.params.sides)
+	const dice = parseInt(req.params.dice)
 	res.send(roll(sides, dice, 1))
 })
 
-app.get('/app/roll/:sides/:dice/:rolls/', (req, res) => {
-	let sides = parseInt(req.params.sides);
-	let dice = parseInt(req.params.dice);
-	let rolls = parseInt(req.params.rolls);
-	
-	res.send(roll(sides, dice, rolls));
+app.get('/app/roll/:sides/:dice/:rolls', (req, res) => {
+	const sides = parseInt(req.params.sides)
+	const dice = parseInt(req.params.dice)
+	const rolls = parseInt(req.params.rolls)
+	res.send(roll(sides, dice, rolls))
 })
 
 app.use((req, res) => {
-	res.status(404).send("404 NOT FOUND");
+	res.status(404).send("404 NOT FOUND")
 })
 
 app.listen(port);
